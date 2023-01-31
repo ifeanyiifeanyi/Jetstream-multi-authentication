@@ -8,9 +8,10 @@
 
 
 <div class="card-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+  <x-jet-validation-errors class="mb-4 text-danger" />
 
-    <form action="{{ route('admin.login') }}" method="post">
+
+    <form action="{{ url($guard.'/login') }}" method="post">
         @csrf
       <div class="input-group mb-3">
         <input type="email" name="email" class="form-control" placeholder="Email">
@@ -18,9 +19,7 @@
           <div class="input-group-text">
             <span class="fas fa-envelope"></span>
           </div>
-          <div class="container">
-            <div class="text-danger">error</div>
-          </div>
+          
         </div>
       </div>
       <div class="input-group mb-3">

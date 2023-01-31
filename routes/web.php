@@ -23,12 +23,14 @@ Route::controller(AdminController::class)->middleware('admin:admin')->group(func
     Route::post('admin/login', 'store')->name('admin.login');
 });
 
-Route::middleware(['auth:sanctum','admin',config('jetstream.auth_session'),'verified'])->group(function () {
+//admin dashboard
+Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
-    })->name('admin.dashboard');
+    })->name('admin.dashboard')->middleware('auth:admin');
 });
 
+//user dashboard
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
