@@ -38,7 +38,7 @@
                         <!-- /.card-header -->
                         <!-- form start -->
 
-                        <form method="post" action="{{ route('job.store') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('jobapp.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
