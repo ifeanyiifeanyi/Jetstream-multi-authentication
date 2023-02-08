@@ -14,7 +14,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}"><link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
   @yield('css')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -41,6 +43,62 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
+
+<script src="{{ asset('admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/toastr/toastr.min.js') }}"></script>
+  <!-- DataTables  & Plugins -->
+  <script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/jszip/jszip.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+  <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+  <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+  <script>
+    $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+  </script>
+  <script>
+    @if (Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch (type) {
+      case 'info':
+        toastr.info("{{ Session::get('message') }}");
+        break;
+      case 'success':
+        toastr.success("{{ Session::get('message') }}");
+        break;
+      case 'warning':
+        toastr.warning("{{ Session::get('message') }}");
+        break;
+      case 'error':
+        toastr.error("{{ Session::get('message') }}");
+        break;
+
+      default:
+        break;
+    }
+
+  @endif
+  </script>
 
 @yield('scripts')
 </body>

@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\JobApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,11 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard')->middleware('auth:admin');
+
+    Route::controller(JobApplicationController::class)->middleware('auth:admin')->group(function(){
+        Route::get('job', 'index')->name('job.index');
+        Route::get('job/create', 'create')->name('job.create');
+    });
 });
 
 //user dashboard
