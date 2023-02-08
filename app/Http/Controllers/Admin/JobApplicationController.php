@@ -13,4 +13,7 @@ class JobApplicationController extends Controller
     public function create(){
         return view('admin.jobs.create');
     }
+    public function store(Request $request){
+        
+    }
 }

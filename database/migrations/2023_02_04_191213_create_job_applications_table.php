@@ -15,6 +15,18 @@ return new class extends Migration
     {
         Schema::create('job_applications', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('company');
+            $table->string('location');
+            $table->string('type');
+            $table->string('email')->unique();
+            $table->string('requirements');
+            $table->string('salary');
+            $table->text('description');
+            $table->string('number_requires');
+            $table->string('image')->nullable();
+            $table->tinyInteger('status');
+            $table->string('others');
             $table->timestamps();
         });
     }
