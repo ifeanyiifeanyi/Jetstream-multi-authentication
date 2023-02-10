@@ -37,43 +37,32 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th><input type="checkbox" name="ids" id="ids" class="all_ids"></th>
+                                <th style="width:20px !important"><input type="checkbox" name="ids" id="ids" class="all_ids"></th>
                                 <th>#</th>
-                                <th>Code</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>Title </th>
+                                <th>Company</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
-                        <tbody>
-
-                            <tr>
-                                <td><input type="checkbox" name="ids" id="ids"></td>
-                                <td>1</td>
-                                <td>WinXPSP2</td>
-                                <td>Active</td>
-                                <td>Delete</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="ids" id="ids"></td>
-                                <td>1</td>
-                                <td>WinXPSP2</td>
-                                <td>Active</td>
-                                <td>Delete</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="ids" id="ids"></td>
-                                <td>1</td>
-                                <td>WinXPSP2</td>
-                                <td>Active</td>
-                                <td>Delete</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="ids" id="ids"></td>
-                                <td>1</td>
-                                <td>WinXPSP2</td>
-                                <td>Active</td>
-                                <td>Delete</td>
-                            </tr>
+                        @if($jobs->count())
+                            <tbody>
+                                @foreach ($jobs as $job)
+                                <tr>
+                                    <td><input type="checkbox" name="ids" id="ids"></td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ ucwords($job->title) }} <a href="{{ route('job.view', $job->id) }}" class="btn btn-info btn-"><i class="fas fa-eye"></i></a></td>
+                                    <td>{{ ucwords($job->company) }}</td>
+                                    <td><a href="{{ route('job.edit', $job->id) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a></td>
+                                    <td>Delete</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        @else
+                            <p>No content</p>
+                        @endif
+                      
+                           
                     </table>
                 </div>
                 <!-- /.card-body -->

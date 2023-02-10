@@ -31,9 +31,12 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     })->name('admin.dashboard')->middleware('auth:admin');
 
     Route::controller(JobApplicationController::class)->middleware('auth:admin')->group(function(){
-        Route::get('job', 'index')->name('job.index');
-        Route::get('job/create', 'create')->name('job.create');
-        Route::post('job/store', 'store')->name('jobapp.store');
+        Route::get('jobs', 'index')->name('job.index');
+        Route::get('jobs/create', 'create')->name('job.create');
+        Route::post('jobs/store', 'store')->name('jobapp.store');
+        Route::get('jobs/edit/{id}', 'edit')->name('job.edit');
+        Route::post('jobs/update/{id}', 'update')->name('job.update');
+        Route::get('jobs/view/{id}', 'viewjob')->name('job.view');
     });
 });
 
