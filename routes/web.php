@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobApplicationController;
+use App\Http\Controllers\Admin\VisaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,12 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
         Route::get('jobs/edit/{id}', 'edit')->name('job.edit');
         Route::post('jobs/update/{id}', 'update')->name('job.update');
         Route::get('jobs/view/{id}', 'viewjob')->name('job.view');
+    });
+
+    Route::controller(VisaController::class)->middleware('auth:admin')->group(function(){
+        Route::get('/visa', 'index')->name('visa');
+        Route::get('/visa/create', 'create')->name('visa.create');
+        Route::post('/visa/create', 'store')->name('visa.store');
     });
 });
 

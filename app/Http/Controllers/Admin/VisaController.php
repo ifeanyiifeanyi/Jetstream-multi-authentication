@@ -14,7 +14,7 @@ class VisaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.visa.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class VisaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.visa.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class VisaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
