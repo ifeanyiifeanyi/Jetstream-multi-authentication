@@ -38,7 +38,8 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
         Route::post('jobs/store', 'store')->name('jobapp.store');
         Route::get('jobs/edit/{id}', 'edit')->name('job.edit');
         Route::post('jobs/update/{id}', 'update')->name('job.update');
-        Route::get('jobs/view/{id}', 'viewjob')->name('job.view');
+        Route::get('jobs/view/{id}', 'show')->name('job.view');
+        Route::delete('job/delete/{id}', 'destroy')->name('job.destroy');
     });
 
     Route::controller(VisaController::class)->middleware('auth:admin')->group(function(){
@@ -48,6 +49,7 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
         Route::get('/visa/edit/{uuid}', 'edit')->name('visa.edit');
         Route::post('/visa/create', 'store')->name('visa.store');
         Route::post('/visa/update/{id}', 'update')->name('visa.update');
+        Route::delete('/visa/delete/{uuid}', 'destroy')->name('visa.destroy');
     });
 
     Route::controller(ManageUserController::class)->middleware('auth:admin')->group(function(){

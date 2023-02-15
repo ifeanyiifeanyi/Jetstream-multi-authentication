@@ -60,7 +60,13 @@
                                     <td><a href="{{ route('visa.show', $visa->uuid) }}" class="btn btn-info btn-"><i class="fas fa-eye"></i> View Details</a></td>
 
                                     <td><a href="{{ route('visa.edit', $visa->uuid) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a></td>
-                                    <td>Delete</td>
+                                    <td>
+                                        <form id="delete" action="{{ route('visa.destroy', $visa->uuid) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-transparent border-transparent"><i class="fas fa-trash fa-1x text-danger"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -88,5 +94,38 @@
             checkbox.checked = this.checked;
         }, this);
     });
+</script>
+<script>
+    $(function() {
+        $(document).on('click', '#delete', function(e) {
+            e.preventDefault();
+            var link = $(this).data("id");
+            console.log({
+                link
+            });
+
+            Swal.fire({
+                title: 'Are you sure?'
+                , text: "You won't be able to revert this!"
+                , icon: 'warning'
+                , showCancelButton: true
+                , confirmButtonColor: '#3085d6'
+                , cancelButtonColor: '#d33'
+                , confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if ($("#delete").submit()) {
+                        Swal.fire(
+                            'Deleted!'
+                            , 'Value deleted.'
+                            , 'success'
+                        )
+                    }
+                }
+            })
+        })
+
+    })
+
 </script>
 @endsection

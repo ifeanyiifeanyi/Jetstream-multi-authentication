@@ -114,8 +114,16 @@ class JobApplicationController extends Controller
         return redirect()->route('job.index')->with($notification);
     }
 
-    public function viewjob($id){
+    public function show($id){
         $job = JobApplication::findOrFail($id);
         return view('admin.jobs.view', ['job' => $job]);
+    }
+    public function destroy($id)
+    {
+        JobApplication::findOrFail($id)->delete();
+        $notification = [
+            'message'   => 'Job Template Deleted!',
+            'alert-type' => 'success'
+        ];
     }
 }

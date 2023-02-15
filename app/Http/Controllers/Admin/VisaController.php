@@ -110,8 +110,13 @@ class VisaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        //
+        DB::table('visas')->where('uuid', $uuid)->delete();
+        $notification = [
+            'message'   => 'Visa Template Deleted!',
+            'alert-type' => 'success'
+        ];
+        return redirect()->route('visa')->with($notification);
     }
 }

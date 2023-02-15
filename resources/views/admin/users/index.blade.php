@@ -72,12 +72,16 @@
                                         class="{{ $user->email_verified_at ? 'text-success fas fa-times' : 'text-danger text-center fas fa-check' }}"></i>
                                 </td>
                                 <td>
+                                    @if($user->profile_photo_path)
                                     <a href="{{ asset('storage/'.$user->profile_photo_path) }}" data-toggle="lightbox"
                                         data-title="{{ ucwords($user->name )}}">
                                         <img width="100px" src="{{ asset('storage/'.$user->profile_photo_path) }}"
                                             alt=""><br>
                                             click to view
                                     </a>
+                                    @else
+                                    <p>No image</p>
+                                    @endif
                                 </td>
                                 <td>
                                     <form id="delete" action="{{ route('delete.user', $user->id) }}" method="POST">
