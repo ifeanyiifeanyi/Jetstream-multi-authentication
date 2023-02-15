@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobApplicationController;
+use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\VisaController;
 
 /*
@@ -43,7 +44,15 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::controller(VisaController::class)->middleware('auth:admin')->group(function(){
         Route::get('/visa', 'index')->name('visa');
         Route::get('/visa/create', 'create')->name('visa.create');
+        Route::get('/visa/details/{uuid}', 'show')->name('visa.show');
+        Route::get('/visa/edit/{uuid}', 'edit')->name('visa.edit');
         Route::post('/visa/create', 'store')->name('visa.store');
+        Route::post('/visa/update/{id}', 'update')->name('visa.update');
+    });
+
+    Route::controller(ManageUserController::class)->middleware('auth:admin')->group(function(){
+        Route::get('admin/users', 'index')->name('manage.user');
+        Route::delete('admin/users/{id}', 'destroy')->name('delete.user');
     });
 });
 

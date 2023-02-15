@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Visa;
 use Illuminate\Http\Request;
+use Symfony\Polyfill\Uuid\Uuid;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class VisaController extends Controller
 {
@@ -14,7 +17,9 @@ class VisaController extends Controller
      */
     public function index()
     {
-        return view('admin.visa.index');
+        $visas =Visa::latest()->get();
+        // dd($visas);
+        return view('admin.visa.index', ['visas' => $visas]);
     }
 
     /**
@@ -24,6 +29,7 @@ class VisaController extends Controller
      */
     public function create()
     {
+
         return view('admin.visa.create');
     }
 
@@ -33,10 +39,22 @@ class VisaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
+        $request->validate([
+            'visa_name' => 'required|string|min:5|max:255|unique:visas',
+            'description' => 'required|string'
+        ]);
+
+        $data = $request->all();
+        $data['uuid'] = Uuid::uuid_create();
+        Visa::create($data);
+
+        return redirect()->route('visa')->with('message', 'Visa Application Rules Created');
     }
+
 
     /**
      * Display the specified resource.
@@ -44,9 +62,11 @@ class VisaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        $visa = DB::table('visas')->where('uuid',$uuid)->first();
+        
+        return view('admin.visa.view', ['visa' => $visa]);
     }
 
     /**
@@ -55,9 +75,11 @@ class VisaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        $visa = DB::table('visas')->where('uuid',$uuid)->first();
+        
+        return view('admin.visa.edit', ['visa' => $visa]);
     }
 
     /**
@@ -69,8 +91,18 @@ class VisaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            'visa_name' => 'required|string|min:5|max:255',
+            'description' => 'required|string'
+        ]);
+
+        Visa::findOrFail($id)->update($request->all());
+        return redirect()->route('visa')->with('message', 'Visa Application Rules Updated!');
+
+        
     }
+
 
     /**
      * Remove the specified resource from storage.

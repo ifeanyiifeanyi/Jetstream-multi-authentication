@@ -31,6 +31,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title"><a href="{{ route('job.create') }}" class="btn btn-outline-info"><i class="fas fa-plus"></i> Add new</a></h3>
+                    <a href="" class="btn btn-warning btn-sm" style="float:right"><i class="fas fa-trash"></i></a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
