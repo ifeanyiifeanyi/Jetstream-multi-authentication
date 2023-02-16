@@ -13,7 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('job_applications', function (Blueprint $table) {
+            $table->integer('category_id')->unsigned();
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('job_applications', function (Blueprint $table) {
+            $table->dropColumn('category_id');
+        });
     }
 };

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobApplicationController;
+use App\Http\Controllers\Admin\JobCategoryController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\VisaController;
 
@@ -40,6 +41,13 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
         Route::post('jobs/update/{id}', 'update')->name('job.update');
         Route::get('jobs/view/{id}', 'show')->name('job.view');
         Route::delete('job/delete/{id}', 'destroy')->name('job.destroy');
+    });
+
+    Route::controller(JobCategoryController::class)->middleware('auth:admin')->group(function(){
+        Route::get('categories', 'index')->name('job.category');
+        Route::get('categories/edit/{id}', 'edit')->name('category.edit');
+        Route::post('categories', 'store')->name('category.store');
+        Route::delete('categories/{id}', 'destroy')->name('category.destroy');
     });
 
     Route::controller(VisaController::class)->middleware('auth:admin')->group(function(){

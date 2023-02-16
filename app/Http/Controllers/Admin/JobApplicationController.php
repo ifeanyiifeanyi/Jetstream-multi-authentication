@@ -125,5 +125,6 @@ class JobApplicationController extends Controller
             'message'   => 'Job Template Deleted!',
             'alert-type' => 'success'
         ];
+        return redirect()->route('job.index')->with($notification);
     }
 }
