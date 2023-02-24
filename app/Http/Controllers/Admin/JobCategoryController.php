@@ -15,8 +15,9 @@ class JobCategoryController extends Controller
      */
     public function index()
     {
+        $category = null;
         $categories = JobCategory::latest()->get();
-        return view('admin.jobCategory.index', ['categories' => $categories]);
+        return view('admin.jobCategory.index', ['categories' => $categories, 'category' => $category]);
     }
 
    
@@ -43,16 +44,7 @@ class JobCategoryController extends Controller
         return redirect()->route('job.category')->with($notification);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -62,7 +54,9 @@ class JobCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = JobCategory::findOrFail($id);
+        $categories = JobCategory::latest()->get();
+        return view('admin.jobCategory.index', ['category' => $category, 'categories' => $categories]);
     }
 
     /**
@@ -74,7 +68,18 @@ class JobCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:2|max:50'
+        ]);
+        $category = JobCategory::findOrFail($id);
+        $category->name = $request->name;
+        $category->status = $request->status ? 1 : 0;
+        $category->save();
+        $notification = [
+            'message'   => 'Job Category Updated!',
+            'alert-type' => 'success'
+        ];
+        return redirect()->route('job.category')->with($notification);
     }
 
     /**

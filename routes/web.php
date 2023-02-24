@@ -46,6 +46,7 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::controller(JobCategoryController::class)->middleware('auth:admin')->group(function(){
         Route::get('categories', 'index')->name('job.category');
         Route::get('categories/edit/{id}', 'edit')->name('category.edit');
+        Route::post('categories/update/{id}', 'update')->name('category.update');
         Route::post('categories', 'store')->name('category.store');
         Route::delete('categories/{id}', 'destroy')->name('category.destroy');
     });

@@ -29,12 +29,13 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
+                @if(!$category)
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">Create Category</div>
                         <div class="card-body">
 
-                            <form action="" method="post">
+                            <form action="{{ route('category.store') }}" method="post">
                                 @csrf 
                                 <div class="form-group">
                                     <label for="name">Category Name</label>
@@ -53,6 +54,32 @@
                         </div>
                     </div>
                 </div>
+               @else
+                <div class="col-md-4">
+                    <div class="card bg-info">
+                        <div class="card-header">Update Category</div>
+                        <div class="card-body">
+
+                            <form action="{{ route('category.update', $category->id) }}" method="post">
+                                @csrf 
+                                <div class="form-group">
+                                    <label for="name">Category Name</label>
+                                    <input type="text" name="name" class="form-control" value="{{ $category->name }}">
+                                    @error('name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">
+                                        <input {{ $category->status ? 'checked' : '' }} type="checkbox" name="status" id="status"> Status
+                                    </label>
+                                </div>
+                                <button type="submit" style="width:100%" class="btn btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>      
+                @endif
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
