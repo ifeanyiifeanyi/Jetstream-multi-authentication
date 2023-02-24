@@ -2,7 +2,21 @@
 
 @section('title', 'View Job | '. ucwords($job->title))
 @section('css')
-
+<style>
+    input{
+        border: none !important;
+        padding: 20px !important;
+        text-align: center
+    }
+    textarea{
+        border: none !important;
+       
+    }
+    label{
+        text-align: center !important;
+        color: teal !important;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -40,17 +54,24 @@
 
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="title">Title</label>
                                             <input disabled type="text" class="form-control" value="{{ $job->title }}">
                                         </div>
                                        
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="company">Company</label>
                                             <input disabled type="text" class="form-control" value="{{ $job->company }}">
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="company">Category</label>
+                                            <input disabled type="text" class="form-control" value="{{ $job->category->name }}">
                                         </div>
                                        
                                     </div>

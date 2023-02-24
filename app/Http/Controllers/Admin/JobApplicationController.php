@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
 use App\Http\Controllers\Controller;
+use App\Models\JobCategory;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +16,8 @@ class JobApplicationController extends Controller
         return view('admin.jobs.index', ['jobs' => $jobs]);
     }
     public function create(){
-        return view('admin.jobs.create');
+        $categories  = JobCategory::all();
+        return view('admin.jobs.create', ['categories' => $categories]);
     }
     public function store(Request $request){
         // dd($request);
@@ -31,6 +33,7 @@ class JobApplicationController extends Controller
             'requirements' => 'required|min:10|max:255',
             'description' => 'required|min:10|max:199',
             'others' => 'nullable|string',
+            'category_id' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $jobs = new JobApplication();
@@ -54,6 +57,7 @@ class JobApplicationController extends Controller
         $jobs->requirements = $request->requirements;
         $jobs->description = $request->description;
         $jobs->others = $request->others;
+        $jobs->category_id = $request->category_id;
         $jobs->status = $request->status ? 1 : 0;
         $jobs->save();
         $notification = [
@@ -64,7 +68,8 @@ class JobApplicationController extends Controller
     }
     public function edit($id){
         $job = JobApplication::findOrFail($id);
-        return view('admin.jobs.edit', ['job' => $job]);
+        $categories  = JobCategory::all();
+        return view('admin.jobs.edit', ['job' => $job, 'categories' => $categories]);
     }
     public function update(Request $request,$id)
     {
@@ -105,6 +110,7 @@ class JobApplicationController extends Controller
         $job->requirements = $request->requirements;
         $job->description = $request->description;
         $job->others = $request->others;
+        $job->category_id = $request->category_id;
         $job->status = $request->status ? 1 : 0;
         $job->save();
         $notification = [

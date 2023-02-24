@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\JobApplicationController;
 use App\Http\Controllers\Admin\JobCategoryController;
+use App\Http\Controllers\Admin\LogoutController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\VisaController;
 
@@ -32,6 +33,10 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard')->middleware('auth:admin');
+
+    Route::controller(AdminController::class)->middleware('auth:admin')->group(function(){
+        Route::post('admin/logout', 'destroy')->name('admin.logout');
+    });
 
     Route::controller(JobApplicationController::class)->middleware('auth:admin')->group(function(){
         Route::get('jobs', 'index')->name('job.index');

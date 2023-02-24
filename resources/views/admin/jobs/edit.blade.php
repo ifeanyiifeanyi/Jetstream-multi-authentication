@@ -42,7 +42,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="title">Title</label>
                                             <input type="text" name="title" class="form-control" id="title"
@@ -52,11 +52,30 @@
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="company">Company</label>
                                             <input type="text" name="company" class="form-control" id="company"
                                                 placeholder="Enter company" value="{{ $job->company }}">
+                                        </div>
+                                        @error('company')
+                                        <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="company">Company</label>
+                                            <select name="category_id" class="form-control" id="company">
+                                                <option value="{{ $job->category_id }}">Select Job Category</option>
+                                                @if($categories->count())
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ ucwords($category->name) }}</option>
+                                                        
+                                                    @endforeach
+                                                @else
+                                                    <option value="0">{{ ('No category') }}</option> 
+                                                @endif
+                                            </select>
                                         </div>
                                         @error('company')
                                         <span class="text-danger text-sm">{{ $message }}</span>

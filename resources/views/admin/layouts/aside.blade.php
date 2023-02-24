@@ -159,7 +159,16 @@
               </a>
             </li>
             
+            
           </ul>
+        </li>
+        <li class="nav-item mb-5">
+         
+          <form action="{{ route('admin.logout') }}" method="POST">
+            @csrf
+            <i class="fas fa-padlock nav-icon"></i>
+            <button type="submit" class="nav-link btn btn-danger text-light"> Logout</button>
+        </form>
         </li>
       </ul>
     </nav>

@@ -42,7 +42,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="title">Title</label>
                                             <input type="text" name="title" class="form-control" id="title"
@@ -52,11 +52,30 @@
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="company">Company</label>
                                             <input type="text" name="company" class="form-control" id="company"
                                                 placeholder="Enter company" value="{{ old('company') }}">
+                                        </div>
+                                        @error('company')
+                                        <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="company">Company</label>
+                                            <select name="category_id" class="form-control" id="company">
+                                                <option value="">Select Job Category</option>
+                                                @if($categories->count())
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ ucwords($category->name) }}</option>
+                                                        
+                                                    @endforeach
+                                                @else
+                                                    <option value="0">{{ ('No category') }}</option> 
+                                                @endif
+                                            </select>
                                         </div>
                                         @error('company')
                                         <span class="text-danger text-sm">{{ $message }}</span>
@@ -138,7 +157,7 @@
                                             <label for="requirements">Requirements</label>
                                             <textarea name="requirements" class="form-control" id="requirements"
                                                 placeholder="Enter Requirements"
-                                                value="{{ old('requirements') }}"></textarea>
+                                                value="{{ old('requirements') }}">{{ old('requirements') }}</textarea>
                                         </div>
                                         @error('requirements')
                                         <span class="text-danger text-sm">{{ $message }}</span>
@@ -148,7 +167,7 @@
                                         <div class="form-group">
                                             <label for="others">Other Additional Requirement</label>
                                             <textarea name="others" class="form-control" id="others"
-                                                placeholder="Enter others" value="{{ old('others') }}">Null</textarea>
+                                                placeholder="Enter others" value="{{ old('others') }}">{{ old('others') }}</textarea>
                                         </div>
                                         @error('others')
                                         <span class="text-danger text-sm">{{ $message }}</span>
@@ -162,7 +181,7 @@
                                             <label for="description">Description</label>
                                             <textarea name="description" class="form-control" id="description"
                                                 placeholder="Enter description"
-                                                value="{{ old('description') }}"></textarea>
+                                                value="{{ old('description') }}">{{ old('description') }}</textarea>
                                         </div>
                                         @error('description')
                                         <span class="text-danger text-sm">{{ $message }}</span>
