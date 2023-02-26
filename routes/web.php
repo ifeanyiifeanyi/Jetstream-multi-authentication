@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Admin\JobApplicationController;
-use App\Http\Controllers\Admin\JobCategoryController;
-use App\Http\Controllers\Admin\LogoutController;
-use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\VisaController;
+use App\Http\Controllers\Admin\LogoutController;
+use App\Http\Controllers\Users\LatestJobController;
+use App\Http\Controllers\Admin\ManageUserController;
+use App\Http\Controllers\Users\LatestVisaController;
+use App\Http\Controllers\Admin\JobCategoryController;
+use App\Http\Controllers\Admin\JobApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,4 +79,13 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::controller(LatestJobController::class)->group(function(){
+        Route::get('jobs', 'index')->name('latest.job');
+        Route::get('jobs/{id}', 'show')->name('latest.job.show');
+    });
+
+    Route::controller(LatestVisaController::class)->group(function(){
+        Route::get('visa-offers', 'index')->name('visa.offers');
+    });
 });
