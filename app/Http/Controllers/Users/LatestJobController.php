@@ -17,4 +17,19 @@ class LatestJobController extends Controller
         $job = JobApplication::findOrFail($id);
         return view('profile.applications.jobs.show', ['job' => $job]);
     }
+    public function apply($id){
+        $job = JobApplication::findOrFail($id);
+        return view('profile.applications.jobs.submit', ['job' => $job]);
+    }
+    public function store(Request $request){
+        // dd($request);
+        $request->validate([
+            'cv' => 'required|mimes:pdf,doc,docx|max:2048',
+            'user_id' => 'required',
+            'job_id'    => 'required',
+            'job_title' => 'required',
+            'user_email' => 'required|email|exists:users,email',
+            'user_name' => 'required|string|exists:users,name'
+        ]);
+    }
 }

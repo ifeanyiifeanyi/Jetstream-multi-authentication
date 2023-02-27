@@ -83,6 +83,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::controller(LatestJobController::class)->group(function(){
         Route::get('jobs', 'index')->name('latest.job');
         Route::get('jobs/{id}', 'show')->name('latest.job.show');
+        Route::get('jobs/apply/{id}', 'apply')->name('latest.job.apply');
+        Route::post('jobs/applied', 'store')->name('latest.job.store');
     });
 
     Route::controller(LatestVisaController::class)->group(function(){
