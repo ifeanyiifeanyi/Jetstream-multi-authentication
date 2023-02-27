@@ -52,7 +52,7 @@
                     </div>
                     <div class="flex items-start mb-6">
                         <div class="flex items-center h-5">
-                            <input id="terms" type="checkbox" name="terms"
+                            <input checked id="terms" type="checkbox" name="terms"
                                 class="border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                                 required>
                         </div>
