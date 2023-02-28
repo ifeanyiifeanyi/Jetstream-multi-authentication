@@ -41,13 +41,13 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     });
 
     Route::controller(JobApplicationController::class)->middleware('auth:admin')->group(function(){
-        Route::get('jobs', 'index')->name('job.index');
-        Route::get('jobs/create', 'create')->name('job.create');
-        Route::post('jobs/store', 'store')->name('jobapp.store');
-        Route::get('jobs/edit/{id}', 'edit')->name('job.edit');
-        Route::post('jobs/update/{id}', 'update')->name('job.update');
-        Route::get('jobs/view/{id}', 'show')->name('job.view');
-        Route::delete('job/delete/{id}', 'destroy')->name('job.destroy');
+        Route::get('admin/jobs', 'index')->name('job.index');
+        Route::get('admin/jobs/create', 'create')->name('job.create');
+        Route::post('admin/jobs/store', 'store')->name('jobapp.store');
+        Route::get('admin/jobs/edit/{id}', 'edit')->name('job.edit');
+        Route::post('admin/jobs/update/{id}', 'update')->name('job.update');
+        Route::get('admin/jobs/view/{id}', 'show')->name('job.view');
+        Route::delete('admin/job/delete/{id}', 'destroy')->name('job.destroy');
     });
 
     Route::controller(JobCategoryController::class)->middleware('auth:admin')->group(function(){
@@ -85,6 +85,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('jobs/{id}', 'show')->name('latest.job.show');
         Route::get('jobs/apply/{id}', 'apply')->name('latest.job.apply');
         Route::post('jobs/applied', 'store')->name('latest.job.store');
+        Route::get('user/jobs/status', 'showAppliedJobs')->name('job.applied');
     });
 
     Route::controller(LatestVisaController::class)->group(function(){
