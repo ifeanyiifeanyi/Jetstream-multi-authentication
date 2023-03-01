@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', ucwords($visa->visa_name))
+@section('title', ucwords($viewAppliedJob->title))
 @section('css')
 
 @endsection
@@ -30,32 +30,35 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title"><a href="{{ route('visa') }}" class="btn btn-outline-info"><i
-                                class="fas fa-university"></i> Applications Templates</a></h3>
+                    <h3 class="card-title"><a href="{{ route('manage.appliedjobs') }}" class="btn btn-outline-info"><i
+                                class="fas fa-university"></i> Job Applications</a></h3>
                 </div>
                 <div class="card-body text-center">
                   
                         <div class="form-group">
-                            <label for="visa_type">Name of Visa</label>
-                            <h1 class="text-info">{{ ucwords($visa->visa_name) }}</h1>
+                            <label for="visa_type">Job Title</label>
+                            <h4 class="text-info">{{ $viewAppliedJob->title }}</h4>
                         </div>
                         <hr style="color: teal !important">
                         <div class="container mt-3 mb-3">
-                            <h3 class="text-secondary">public & private key,</h3>
-                            <h6 class="text-info">Private key: <b>{{ $visa->uuid }}</b></h6>
-                            <h6 class="text-info">Public key: <b>{{ $visa->_token }}</b></h6>
+                            <h3 class="text-secondary text-info">{{ ucwords($viewAppliedJob->company) }}</h3>
+                            <h6 class="text-info">Private key: <b>{{ $viewAppliedJob->job_token }}</b></h6>
+                            <h6 class="text-info">Application Date: <b>{{ \Carbon\Carbon::parse($viewAppliedJob->applied_date)->diffForHumans() }}</b></h6>
                         </div>
 
                         <div class="row">
-                            @foreach($visa as $key => $value)
-                            @if($value === "null" || $key === "id" || $key === "uuid" || $key === "_token" || $key === "description")
-                                @continue
-                            @endif
+                            @foreach($viewAppliedJob as $value)
+                           
                             <div class="col-sm-3 col-md-3 col-xs-3">
                                 <div class="card card-info">
-                                    <div class="card-header"><h6>{{ ucwords(Str::replace("_", " ", $key)) }}:</h6></div>
+                                    <div class="card header">
+
+                                    </div>
                                     <div class="card-body">
-                                        <p>{{ ucwords(Str::replace("_", " ",$value)) }}</p>
+                                        
+                                    </div>
+                                    <div class="card-footer">
+                                        <p>Salary : <b style="text-success">$ {{ $value->salary }}</b></p>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +70,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                             <p class="lead" style="text-align:justify !important">{{ $visa->description }}</p>
+                             <p class="lead" style="text-align:justify !important">{{ $viewAppliedJob->description }}</p>
                             </div>
                         </div>
                 </div>

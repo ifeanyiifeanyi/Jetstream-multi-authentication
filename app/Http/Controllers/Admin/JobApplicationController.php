@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class JobApplicationController extends Controller
 {
     public function index(){
-        $jobs = JobApplication::latest()->get();
+        $jobs = JobApplication::withCount('appliedJobs')->latest()->get();
         return view('admin.jobs.index', ['jobs' => $jobs]);
     }
     public function create(){

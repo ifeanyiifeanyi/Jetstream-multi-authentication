@@ -40,9 +40,11 @@
                             <tr>
                                 <th style="width:20px !important"><input type="checkbox" name="ids" id="ids" class="all_ids"></th>
                                 <th>#</th>
+                                <th>View Job Details </th>
                                 <th>Title </th>
                                 <th>Company</th>
                                 <th>Category</th>
+                                <th>No. of Application</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -53,9 +55,15 @@
                                 <tr>
                                     <td><input type="checkbox" name="ids" id="ids"></td>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ ucwords($job->title) }} <a href="{{ route('job.view', $job->id) }}" class="btn btn-info btn-"><i class="fas fa-eye"></i></a></td>
+                                    <td> <a href="{{ route('job.view', $job->id) }}" class="btn btn-info btn-"><i class="fas fa-eye"></i></a></td>
+                                    <td>
+                                        {{ ucwords($job->title) }} 
+                                       
+                                    </td>
                                     <td>{{ ucwords($job->company) }}</td>
                                     <td>{{ ucwords($job->category->name) }}</td>
+                                    <td><b>{{ $job->applied_jobs_count }}</b>
+                                    </td>
                                     <td><a href="{{ route('job.edit', $job->id) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a></td>
                                     <td>
                                         <form id="delete" action="{{ route('job.destroy', $job->id) }}" method="POST">

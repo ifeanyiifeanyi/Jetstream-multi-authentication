@@ -12,4 +12,8 @@ class JobApplication extends Model
     public function category(){
         return $this->belongsTo(JobCategory::class);
     }
+
+    public function appliedJobs(){
+        return $this->hasMany(AppliedJobs::class, 'job_id');
+    }
 }

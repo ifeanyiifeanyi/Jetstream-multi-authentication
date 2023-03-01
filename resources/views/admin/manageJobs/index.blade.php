@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Manage Users')
+@section('title', 'Manage Applied Jobs')
 @section('css')
 
 @endsection
@@ -31,76 +31,65 @@
             @if(Session::has('message'))
             <p class="alert alert-success">{{ session('message') }}</p>
             @endif
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title"><a href="{{ route('visa.create') }}" class="btn btn-outline-info"><i
-                                class="fas fa-plus"></i> Add new</a></h3>
-                    <a href="" class="btn btn-warning btn-sm" style="float:right"><i class="fas fa-trash"></i></a>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width:20px !important"><input type="checkbox" name="ids" id="ids"
-                                        class="all_ids"></th>
-                                <th style="width:20px !important">#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Date Joined</th>
-                                <th style="width:20px !important;text-align:center !important">Verified</th>
-                                <th style="width:100px !important">Image</th>
-                                <th style="width:20px !important">Delete</th>
-                            </tr>
-                        </thead>
-                        @if($users->count())
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:20px !important"><input type="checkbox" name="ids" id="ids" class="all_ids"></th>
+                            <th>#</th>
+                            <th>View Application Details </th>
+                            <th>Title </th>
+                            <th>Company</th>
+                            <th>Username</th>
+                            <th>User Email</th>
+                            <th>Status</th>
+                            <th>Delete</th>
+                            <th>Application Date</th>
+                        </tr>
+                    </thead>
+                    @if($manageAppliedJobs->count())
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($manageAppliedJobs as $job)
                             <tr>
                                 <td><input type="checkbox" name="ids" id="ids"></td>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ ucwords($user->name) }} </td>
-
-                                <td>{{ $user->email }}</td>
-
-                                <td> {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
+                                <td> <a href="{{ route('manage.appliedjobs.show', $job->job_id) }}" class="btn btn-info btn-"><i class="fas fa-eye"></i></a></td>
                                 <td>
-                                    &nbsp;
-                                    &nbsp;
-                                    &nbsp;
-                                    <i
-                                        class="{{ $user->email_verified_at ? 'text-success fas fa-times' : 'text-danger text-center fas fa-times' }}"></i>
+                                    {{ ucwords($job->job_title) }} 
+                                   
                                 </td>
+                                <td>{{ ucwords($job->company) }}</td>
+                               
+                                <td>{{ucwords($job->user_name) }}</td>
+                                <td>{{ucwords($job->user_email) }}</td>
                                 <td>
-                                    @if($user->profile_photo_path)
-                                    <a href="{{ asset('storage/'.$user->profile_photo_path) }}" data-toggle="lightbox"
-                                        data-title="{{ ucwords($user->name )}}">
-                                        <img width="100px" src="{{ asset('storage/'.$user->profile_photo_path) }}"
-                                            alt=""><br>
-                                            click to view
-                                    </a>
+                                    @if ($job->job_status == 0)
+                                        <p class="text-warning">Pending</p>
+                                    @elseif ($job->job_status == 1)
+                                        <p class="text-info">Processing</p>
+                                    @elseif ($job->job_status == 2)
+                                        <p class="text-success">Approved</p>
                                     @else
-                                    <p>No image</p>
+                                        <p class="text-danger">Loading ...</p>
                                     @endif
                                 </td>
                                 <td>
-                                    <form id="delete" action="{{ route('delete.user', $user->id) }}" method="POST">
+                                    <form id="delete" action="" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="bg-transparent border-transparent"><i class="fas fa-trash fa-1x text-danger"></i></button>
                                     </form>
                                 </td>
+                                <td>{{ \Carbon\Carbon::parse($job->applied_date)->diffForHumans() }}</td>
                             </tr>
                             @endforeach
                         </tbody>
-                        @else
+                    @else
                         <p>No content</p>
-                        @endif
-
-
-                    </table>
-                </div>
-                <!-- /.card-body -->
+                    @endif
+                  
+                       
+                </table>
             </div>
         </div><!-- /.container-fluid -->
     </div>

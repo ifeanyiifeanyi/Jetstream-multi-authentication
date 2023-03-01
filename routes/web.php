@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Users\LatestVisaController;
 use App\Http\Controllers\Admin\JobCategoryController;
 use App\Http\Controllers\Admin\JobApplicationController;
+use App\Http\Controllers\Admin\ManageAppliedJobsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,11 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::controller(ManageUserController::class)->middleware('auth:admin')->group(function(){
         Route::get('admin/users', 'index')->name('manage.user');
         Route::delete('admin/users/{id}', 'destroy')->name('delete.user');
+    });
+
+    Route::controller(ManageAppliedJobsController::class)->middleware('auth:admin')->group(function(){
+        Route::get('admin/appliedjobs', 'index')->name('manage.appliedjobs');
+        Route::get('admin/appliedjobs/{id}', 'show')->name('manage.appliedjobs.show');
     });
 });
 
