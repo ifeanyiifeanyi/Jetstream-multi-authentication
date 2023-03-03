@@ -77,6 +77,7 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::controller(ManageAppliedJobsController::class)->middleware('auth:admin')->group(function(){
         Route::get('admin/appliedjobs', 'index')->name('manage.appliedjobs');
         Route::get('admin/appliedjobs/{id}', 'show')->name('manage.appliedjobs.show');
+        Route::post('admin/appliedjobs/{job_token}', 'updateApplicationStatus')->name('manage.appliedjobs.status');
     });
 });
 

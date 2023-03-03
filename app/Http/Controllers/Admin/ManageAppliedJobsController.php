@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\AppliedJobs;
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class ManageAppliedJobsController extends Controller
@@ -28,5 +29,21 @@ class ManageAppliedJobsController extends Controller
         ->first();
         // dd($viewAppliedJob);
         return view('admin.manageJobs.show',['viewAppliedJob' => $viewAppliedJob]);
+    }
+    public function updateApplicationStatus($job_token, Request $request){
+        $request->validate([
+            'job_status' => 'required'
+        ]);
+        $updateApplicationStatus = DB::table('applied_jobs')->where('job_token',$job_token);
+        // dd($updateApplicationStatus);
+        $updateApplicationStatus->update([
+            'job_status'  => $request->job_status,
+        ]);
+        // $updateApplicationStatus->update();.
+        $notification = [
+            'message'   => 'Job Application Updated!',
+            'alert-type' => 'success'
+        ];
+        return redirect()->route('manage.appliedjobs')->with($notification);
     }
 }
