@@ -74,7 +74,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <form id="delete" action="" method="POST">
+                                    <form id="delete" action="{{ route('manage.appliedjobs.destroy', $job->job_token) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="bg-transparent border-transparent"><i class="fas fa-trash fa-1x text-danger"></i></button>

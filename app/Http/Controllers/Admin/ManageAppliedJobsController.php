@@ -46,4 +46,15 @@ class ManageAppliedJobsController extends Controller
         ];
         return redirect()->route('manage.appliedjobs')->with($notification);
     }
+    public function destroy($job_token)
+    {
+        $updateApplicationStatus = DB::table('applied_jobs')->where('job_token',$job_token)->delete();
+        $notification = [
+            'message'   => 'Job Application Deleted!',
+            'alert-type' => 'success'
+        ];
+        return redirect()->route('manage.appliedjobs')->with($notification);
+
+        
+    }
 }

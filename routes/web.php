@@ -78,6 +78,7 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
         Route::get('admin/appliedjobs', 'index')->name('manage.appliedjobs');
         Route::get('admin/appliedjobs/{id}', 'show')->name('manage.appliedjobs.show');
         Route::post('admin/appliedjobs/{job_token}', 'updateApplicationStatus')->name('manage.appliedjobs.status');
+        Route::delete('admin/appliedjobs/{job_token}', 'destroy')->name('manage.appliedjobs.destroy');
     });
 });
 
@@ -97,5 +98,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     Route::controller(LatestVisaController::class)->group(function(){
         Route::get('visa-offers', 'index')->name('visa.offers');
+        Route::get('visa-requirements/{uuid}', 'show')->name('visa.offers.show');
+        Route::get('visa-application/{uuid}', 'apply')->name('visa.offers.apply');
     });
 });
