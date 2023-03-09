@@ -70,5 +70,14 @@ class ManagePaymentTypeController extends Controller
         }
 
     }
+    public function destroy($id)
+    {
+        ManagePaymentType::findOrFail($id)->delete();
+        $notification = [
+            'message'   => 'Payment Method Updated!',
+            'alert-type' => 'success'
+        ];
+        return redirect()->route('manage.payments')->with($notification);
+    }
     
 }

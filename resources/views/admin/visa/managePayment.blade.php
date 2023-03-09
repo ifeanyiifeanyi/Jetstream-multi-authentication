@@ -88,10 +88,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><a href="" class="btn btn-outline-info"><i class="fas fa-plus"></i>
-                                    Add new</a></h3>
-                            <a href="" class="btn btn-warning btn-sm" style="float:right"><i
-                                    class="fas fa-trash"></i></a>
+                           
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -117,7 +114,13 @@
                                         <td>{{ ucwords($payment->payment_account) }}</td>
                                         <td><a href="{{ route('manage.payments.edit', $payment->id) }}"
                                                 class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a></td>
-                                        <td>Delete</td>
+                                        <td>
+                                            <form id="delete" action="{{ route('manage.payments.destroy', $payment->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="bg-transparent border-transparent"><i class="fas fa-trash fa-1x text-danger"></i></button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     @endforeach
 

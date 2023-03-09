@@ -87,6 +87,7 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
         Route::post('admin/manage_payments', 'store')->name('manage.payments.store');
         Route::get('admin/manage_payments/edit/{id}', 'edit')->name('manage.payments.edit');
         Route::put('/admin/manage_payment/update/{id}', 'store')->name('manage.payments.update');
+        Route::delete('/admin/manage_payment/delete/{id}', 'destroy')->name('manage.payments.destroy');
     });
 });
 
