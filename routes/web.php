@@ -10,6 +10,7 @@ use App\Http\Controllers\Users\LatestVisaController;
 use App\Http\Controllers\Admin\JobCategoryController;
 use App\Http\Controllers\Admin\JobApplicationController;
 use App\Http\Controllers\Admin\ManageAppliedJobsController;
+use App\Http\Controllers\Admin\ManagePaymentTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,13 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
         Route::post('admin/appliedjobs/{job_token}', 'updateApplicationStatus')->name('manage.appliedjobs.status');
         Route::delete('admin/appliedjobs/{job_token}', 'destroy')->name('manage.appliedjobs.destroy');
     });
+
+    Route::controller(ManagePaymentTypeController::class)->middleware('auth:admin')->group(function(){
+        Route::get('admin/manage_payments', 'index')->name('manage.payments');
+        Route::post('admin/manage_payments', 'store')->name('manage.payments.store');
+        Route::get('admin/manage_payments/edit/{id}', 'edit')->name('manage.payments.edit');
+        Route::put('/admin/manage_payment/update/{id}', 'store')->name('manage.payments.update');
+    });
 });
 
 //user dashboard
@@ -100,5 +108,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('visa-offers', 'index')->name('visa.offers');
         Route::get('visa-requirements/{uuid}', 'show')->name('visa.offers.show');
         Route::get('visa-application/{uuid}', 'apply')->name('visa.offers.apply');
+        Route::post('visa-application', 'store')->name('visa.offers.store');
     });
 });
