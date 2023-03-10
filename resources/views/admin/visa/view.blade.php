@@ -48,7 +48,7 @@
 
                         <div class="row">
                             @foreach($visa as $key => $value)
-                            @if($value === "null" || $key === "id" || $key === "uuid" || $key === "_token" || $key === "description")
+                            @if($value === NULL || $key === "id" || $key === "uuid" || $key === "_token" || $key === "description")
                                 @continue
                             @endif
                             <div class="col-sm-3 col-md-3 col-xs-3">

@@ -14,8 +14,17 @@
 
     <div class="px-5 py-5">
         <div class="max-w-7xl mx-auto py-10 sm:px-4 lg:px-8">
-            <h1 class="mb-10 text-3xl ml-10 mx-auto">Apply for <span style="color:teal">{{
+            <h1 class="mb-5 text-3xl ml-10 mx-auto"><span style="color:teal">{{
                     ucwords($visa_application->visa_name) }}</span></h1>
+                    <p class="mb-10 text-2xl ml-10 mx-auto">
+                        @if ($visa_application->university_name != NULL)
+                            {{ ucwords($visa_application->university_name) }}
+                        @else
+                        {{ ucwords($visa_application->employer_name) }}
+                            
+                        @endif
+                    </p>
+                  
                     @if($errors->any())
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                         <strong class="font-bold">Whoops!</strong>
@@ -36,11 +45,12 @@
                 <input type="hidden" name="user_email" value="{{ auth()->user()->email }}">
                 <input type="hidden" name="visa_applied_name" value="{{ $visa_application->visa_name }}">
                 <input type="hidden" name="visa_applied_id" value="{{ $visa_application->id }}">
+                <input type="hidden" name="amount" value="{{ $visa_application->amount }}">
+                <input type="hidden" name="country" value="{{ $visa_application->country }}">
 
                 <div class="flex flex-wrap -mx-2">
                     @foreach ($visa_application as $key => $visa)
-                    @if($visa === "null" || $key === "id" || $key === "uuid" || $key === "_token" || $key === "description"
-                    || $key === 'created_at' || $key === "updated_at" || $key === "visa_name" || $key === "status")
+                    @if($visa === NULL || $key !== $visa)
                     @continue
                     @endif
                     <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/2 px-2 mb-2 sm:mb-0 xl:mb-10">
@@ -49,11 +59,24 @@
                             
                                 <div class="ml-2">
                                     <p class="text-lg font-bold mb-1 sm:mb-2">
+
                                         @if ($key === 'dob')
                                         <label for="dob" class="">Date of Birth:</label>
                                         <input type="date" name="dob" id="dob" class="w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{ old('dob') }}" placeholder="Date of Birth" required>
-                                        @elseif ($key === 'pob')
 
+                                        @elseif ($key === 'full_name')
+                                        <label for="full_name" class="">Full Name</label>
+                                        <input type="text" name="full_name" id="full_name" class="w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{ ucwords(auth()->user()->name) }}" placeholder="Full Name" required>
+
+                                        @elseif ($key === 'email')
+                                        <label for="email" class="">Email</label>
+                                        <input type="email" name="email" id="email" class="w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{ auth()->user()->email }}" placeholder="Email" required>
+
+                                        @elseif ($key === 'dob')
+                                        <label for="dob" class="">Date of Birth:</label>
+                                        <input type="date" name="dob" id="dob" class="w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{ old('dob') }}" placeholder="Date of Birth" required>
+
+                                        @elseif ($key === 'pob')
                                         <label for="pob" class="">Place of Birth:</label>
                                         <input type="text" name="pob" id="pob" class="w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{old('pob')}}" placeholder="Place of Birth" required>
 

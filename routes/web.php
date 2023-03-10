@@ -110,5 +110,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('visa-requirements/{uuid}', 'show')->name('visa.offers.show');
         Route::get('visa-application/{uuid}', 'apply')->name('visa.offers.apply');
         Route::post('visa-application', 'store')->name('visa.offers.store');
+        Route::get('visa-offer/status', 'showAppliedVisas')->name('visa.offers.status');
+        Route::get('visa-management/status/{uuid}', 'manageVisaPayment')->name('visa.offers.payment');
     });
 });

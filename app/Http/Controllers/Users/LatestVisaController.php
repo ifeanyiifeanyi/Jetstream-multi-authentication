@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Users;
 
 use App\Models\Visa;
+use App\Models\ManagePaymentType;
 use Illuminate\Http\Request;
 use Symfony\Polyfill\Uuid\Uuid;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\VisaApplication;
+use Illuminate\Support\Facades\Auth;
+
 
 class LatestVisaController extends Controller
 {
@@ -58,7 +61,7 @@ class LatestVisaController extends Controller
             $employment->move('employment_contract/', $employment_contract);
             $data['employment_contract'] = 'employment_contract/'.$employment_contract;
         }else {
-            $data['employment_contract'] = 'NULL';
+            $data['employment_contract'] = NULL;
         }
 
 
@@ -70,7 +73,7 @@ class LatestVisaController extends Controller
             $hotel->move('hotel_reservation/', $hotel_reservation);
             $data['hotel_reservation'] = 'hotel_reservation/'.$hotel_reservation;
         }else {
-            $data['hotel_reservation'] = 'NULL';
+            $data['hotel_reservation'] = NULL;
         }
 
 
@@ -82,7 +85,7 @@ class LatestVisaController extends Controller
             $acceptance->move('acceptance_letter/', $acceptance_letter);
             $data['acceptance_letter'] = 'acceptance_letter/'.$acceptance_letter;
         }else {
-            $data['acceptance_letter'] = 'NULL';
+            $data['acceptance_letter'] = NULL;
         }
 
 
@@ -93,7 +96,7 @@ class LatestVisaController extends Controller
             $academic->move('academic_transcript/', $academic_transcript);
             $data['academic_transcript'] = 'academic_transcript/'.$academic_transcript;
         }else {
-            $data['academic_transcript'] = 'NULL';
+            $data['academic_transcript'] = NULL;
         }
 
 
@@ -106,7 +109,7 @@ class LatestVisaController extends Controller
             $financial->move('financial_support/', $financial_support);
             $data['financial_support'] = 'financial_support/'.$financial_support;
         }else {
-            $data['financial_support'] = 'NULL';
+            $data['financial_support'] = NULL;
         }
 
 
@@ -119,7 +122,7 @@ class LatestVisaController extends Controller
             $travel_date->move('travel_dates/', $travel_dates);
             $data['travel_dates'] = 'travel_dates/'.$travel_dates;
         }else {
-            $data['travel_dates'] = 'NULL';
+            $data['travel_dates'] = NULL;
         }
 
 
@@ -132,7 +135,7 @@ class LatestVisaController extends Controller
             $health->move('health/', $health_info);
             $data['health_information'] = 'health/'.$health_info;
         }else {
-            $data['health_information'] = 'NULL';
+            $data['health_information'] = NULL;
         }
 
 
@@ -141,7 +144,31 @@ class LatestVisaController extends Controller
 
 
         VisaApplication::create($data);
-        return redirect()->route('visa.offer')->with('message', 'Your application has been created');
+        return redirect()->route('visa.offers')->with('message', 'Your application has been created');
 
+    }
+
+    public function showAppliedVisas()
+    {
+       
+        $userId = Auth::user()->id;
+
+        $visas =DB::table('visas')
+        ->join('visa_applications', 'visas.id', '=', 'visa_applications.visa_applied_id')
+        ->where('visa_applications.user_id', '=', $userId)
+        ->select('visas.*','visa_applications.created_at as application_date','visa_applications.status as application_status','visa_applications.uuid as application_uuid', 'visa_applications.*')
+        ->paginate(10);
+            // dd($visas);
+        return view('profile.applications.visas.status', ['visas' => $visas]);
+    }
+    public function manageVisaPayment($uuid){
+        $payment_types = ManagePaymentType::latest()->get();
+        $visas =DB::table('visas')
+        ->join('visa_applications', 'visas.id', '=', 'visa_applications.visa_applied_id')
+        ->where('visa_applications.uuid', '=', $uuid)
+        ->select('visas.*','visa_applications.created_at as application_date','visa_applications.status as application_status','visa_applications.uuid as application_uuid', 'visa_applications.*')
+        ->first();
+            dd($payment_types);
+        return view('profile.applications.visas.payment', ['visas' => $visas, 'payment_types'=>$payment_types]);
     }
 }

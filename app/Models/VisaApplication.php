@@ -51,6 +51,12 @@ class VisaApplication extends Model
         'employment_contract',
         'status',
         'uuid',
-        '_token'
+        '_token',
+        'amount',
+        'country',
+        'gender',
+        'degree_type',
+        'degree_duration',
+        'employment_duration'
     ];
 }

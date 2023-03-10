@@ -8,12 +8,38 @@
 
     <div class="px-5 py-4">
         <div class="max-w-7xl mx-auto py-10 sm:px-4 lg:px-8">
-            <h1 class="mb-10 text-3xl ml-10 mx-auto">Requirements for <span style="color:teal">{{
-                    ucwords($visa_requirements->visa_name) }}</span></h1>
+            <h1 class="mb-10 text-3xl ml-10 mx-auto">Requirements & Detail<span style="color:teal"></span></h1>
+           
+                @if ($visa_requirements->university_name != NULL)
+                <small class="mb-10 text-1xl text-blue-500 ml-10 mx-auto"> 
+                    {{ ucwords($visa_requirements->university_name) }}
+                </small><br>
+                <small class="mb-10 text-1xl text-blue-500 ml-10 mx-auto"> 
+                    Program: {{ ucwords($visa_requirements->degree_program) }}
+                </small><br>
+                <small class="mb-10 text-1xl text-blue-500 ml-10 mx-auto"> 
+                    Type: {{ ucwords($visa_requirements->degree_type) }}
+                </small><br>
+                <small class="mb-10 text-1xl text-blue-500 ml-10 mx-auto"> 
+                    Program: {{ ucwords($visa_requirements->degree_program) }}
+                </small><br><br>
+                @else
+                <small class="mb-10 text-1xl text-blue-500 ml-10 mx-auto">
+                   Company: {{ ucwords($visa_requirements->employer_name) }}
+                </small>   <br>
+                <small class="mb-10 text-1xl text-blue-500 ml-10 mx-auto">
+                   JoB Title: {{ ucwords($visa_requirements->job_title) }}
+                </small>   <br>
+                <small class="mb-10 text-1xl text-blue-500 ml-10 mx-auto">
+                   Address: {{ ucwords($visa_requirements->employer_address) }}
+                </small>   <br>
+                @endif
+            
+            
+
             <div class="flex flex-wrap -mx-2">
                 @foreach ($visa_requirements as $key => $visa)
-                @if($visa === "null" || $key === "id" || $key === "uuid" || $key === "_token" || $key === "description"
-                || $key === 'created_at' || $key === "updated_at" || $key === "status" || $key === "visa_name")
+                @if($visa === NULL || $key !== $visa )
                 @continue
                 @endif
                 <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 mb-4 sm:mb-0 xl:mb-10">
@@ -26,15 +52,24 @@
                             </svg>
                             <div class="ml-2">
                                 <p class="text-lg font-bold mb-1 sm:mb-2">
-                                    @if ($key === 'dob')
-                                    <p>Date of Birth: </p>
-                                    @elseif ($key === 'pob')
-                                    <p>Place of Birth: </p>
-                                    @elseif ($key === 'family_dob')
-                                    <p>Place of Birth (Family Member): </p>
-                                    @else
-                                    <p>{{ ucwords(Str::replace("_", " ",$key)) }}</p>
-                                    @endif
+                                @if ($key === 'dob')
+                                    <h6 class="text-teal-400 mb-2">{{ ucwords(Str::replace("_", " ",$visa)) }}</h6>
+                                <p>Date of Birth: </p>
+                                @elseif ($key === 'pob')
+                                <h6 class="text-teal-400 mb-2">{{ ucwords(Str::replace("_", " ",$visa)) }}</h6>
+                                <p>Place of Birth: </p>
+                                @elseif ($key === 'family_dob')
+                                <h6 class="text-teal-400 mb-2">{{ ucwords(Str::replace("_", " ",$visa)) }}</h6>
+                                <p>Place of Birth (Family Member): </p>
+                                @elseif ($key === 'amount')
+                                <h6 class="text-teal-400 mb-2">Process Fee</h6>
+                                <p>$ {{ ucwords(Str::replace("_", " ",$visa)) }} </p>
+                                @else
+
+                                <h6 class="text-teal-400 mb-2">{{ ucwords(Str::replace("_", " ",$key)) }}</h6>
+                                <hr>
+                                <p>{{ ucwords(Str::replace("_", " ",$visa)) }}</p>
+                                @endif
                                 </p>
 
                             </div>
@@ -42,6 +77,10 @@
                     </div>
                 </div>
                 @endforeach
+                <hr>
+                <p>
+
+                </p>
                 <p class="px-5">{{ Str::ucfirst($visa_requirements->description) }}</p>
                 <hr>
                 <p class="mt-10">

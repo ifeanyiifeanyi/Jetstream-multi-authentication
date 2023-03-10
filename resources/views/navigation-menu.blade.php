@@ -102,8 +102,13 @@
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
+
                             <x-jet-dropdown-link href="{{ route('job.applied') }}">
                                 {{ __('Applied Jobs') }}
+                            </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('visa.offers.status') }}">
+                                {{ __('Visa Applications') }}
                             </x-jet-dropdown-link>
 
                             
@@ -175,6 +180,10 @@
 
                 <x-jet-responsive-nav-link href="{{ route('job.applied') }}" :active="request()->routeIs('job.applied')">
                     {{ __('Applied Jobs')  }}
+                </x-jet-responsive-nav-link>
+                
+                <x-jet-responsive-nav-link href="{{ route('visa.offers.status') }}" :active="request()->routeIs('visa.offers.status')">
+                    {{ __('Visa Applications')  }}
                 </x-jet-responsive-nav-link>
                 
 

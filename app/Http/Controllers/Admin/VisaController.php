@@ -44,7 +44,7 @@ class VisaController extends Controller
     {
         // dd($request);
         $request->validate([
-            'visa_name' => 'required|string|min:5|max:255|unique:visas',
+            'visa_name' => 'required|string|min:5|max:255',
             'description' => 'required|string'
         ]);
 

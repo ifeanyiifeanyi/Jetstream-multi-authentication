@@ -36,13 +36,124 @@
                 <div class="card-body text-center">
                     <form action="{{ route('visa.store') }}" method="post">
                         @csrf
-                        <div class="form-group">
-                            <label for="visa_type" style="float:left !important">Name of Visa</label>
-                            <input type="text" name="visa_name" class="form-control" placeholder="Enter name of visa" value="{{ old('visa_name') }}">
-                            @error('visa_name')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="visa_type" style="float:left !important">Name of Visa</label>
+                                    <input type="text" name="visa_name" class="form-control" placeholder="Enter name of visa" value="{{ old('visa_name') }}">
+                                    @error('visa_name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="amount" style="float:left !important">Amount</label>
+                                    <input type="number" min="1" step="0.001" name="amount" class="form-control" placeholder="Cost of processing Visa" value="{{ old('amount') }}">
+                                    @error('amount')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="country" style="float:left !important">Country</label>
+                                    <input type="text" name="country" class="form-control" placeholder="Country" value="{{ old('country') }}">
+                                    @error('country')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <hr>
+                        <fieldset >
+                            <legend class="text-sm text-info">Please leave empty if Visa type is not for <b>Education</b></legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="university_name" style="float:left !important">Name of University</label>
+                                        <input type="text" name="university_name" class="form-control" placeholder="University Name" value="{{ old('university_name') }}">
+                                        @error('university_name')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="degree_program" style="float:left !important">Course of Study</label>
+                                        <input type="text" name="degree_program" class="form-control" placeholder="Eg. Computer Science, Accounting, Economics" value="{{ old('degree_program') }}">
+                                        @error('degree_program')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="degree_type" style="float:left !important">Degree Type</label>
+                                        <input type="text" name="degree_type" class="form-control" placeholder="Eg. Msc, PHD, Post Graduate" value="{{ old('degree_type') }}">
+                                        @error('degree_type')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="degree_duration" style="float:left !important">Degree Duration</label>
+                                        <input type="text" name="degree_duration" class="form-control" placeholder="Program Duration" value="{{ old('degree_duration') }}">
+                                        @error('degree_duration')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <hr>
+                        <fieldset >
+                            <legend class="text-sm text-info">Please leave empty if Visa type is not for <b>Employment</b></legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="job_title" style="float:left !important">Job Title</label>
+                                        <input type="text" name="job_title" class="form-control" placeholder="Job Title" value="{{ old('job_title') }}">
+                                        @error('job_title')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="employer_name" style="float:left !important">Employer Name</label>
+                                        <input type="text" name="employer_name" class="form-control" placeholder="Employer" value="{{ old('employer_name') }}">
+                                        @error('employer_name')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="employer_address" style="float:left !important">Employer Address</label>
+                                        <input type="text" name="employer_address" class="form-control" placeholder="Employer Address" value="{{ old('employer_address') }}">
+                                        @error('employer_address')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="employment_duration" style="float:left !important">Employment Duration</label>
+                                        <input type="text" name="employment_duration" class="form-control" placeholder="Program Duration" value="{{ old('employment_duration') }}">
+                                        @error('employment_duration')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        
+                        
                         <hr style="color: teal !important">
                         <div class="container mt-3 mb-3">
                             <h3 class="text-secondary">Check Required Data,</h3>
@@ -171,7 +282,7 @@
                             </div>
                             <div class="col-sm-3 col-md-3 col-xs-3">
                                 <div class="form-group">
-                                    <label for="family_dob">Date of Birth:</label>
+                                    <label for="family_dob">Family Member Date of Birth:</label>
                                     <input type="checkbox" name="family_dob" id="family_dob" class="form-control" value="family_dob">
                                 </div>
                             </div>
@@ -206,22 +317,9 @@
                                         class="form-control" value="financial_support">
                                 </div>
                             </div>
-                            <div class="col-sm-3 col-md-3 col-xs-3">
-                                <div class="form-group">
-                                    <label for="university_name">Name of University:</label>
-                                    <input type="checkbox" name="university_name" id="university_name"
-                                        class="form-control" value="university_name">
-                                </div>
-                            </div>
-                            <div class="col-sm-3 col-md-3 col-xs-3">
-                                <div class="form-group">
-                                    <label for="degree_program">Degree Program:</label>
-                                    <input type="checkbox" name="degree_program" id="degree_program"
-                                        class="form-control" value="degree_progam">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
+                           
+                      
+                        
                             <div class="col-sm-3 col-md-3 col-xs-3">
                                 <div class="form-group">
                                     <label for="academic_transcript">Academic Transcript:</label>
@@ -250,8 +348,7 @@
                                         class="form-control" value="duration_of_stay">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                      
                             <div class="col-sm-3 col-md-3 col-xs-3">
                                 <div class="form-group">
                                     <label for="hotel_reservation">Hotel Reservation:</label>
@@ -259,27 +356,8 @@
                                         class="form-control" name="hotel_reservation">
                                 </div>
                             </div>
-                            <div class="col-sm-3 col-md-3 col-xs-3">
-                                <div class="form-group">
-                                    <label for="job_title">Job Title:</label>
-                                    <input type="checkbox" name="job_title" id="job_title" class="form-control" value="job_title">
-                                </div>
-                            </div>
-                            <div class="col-sm-3 col-md-3 col-xs-3">
-                                <div class="form-group">
-                                    <label for="employer_name">Employer Name:</label>
-                                    <input type="checkbox" name="employer_name" id="employer_name" class="form-control" value="employer_name">
-                                </div>
-                            </div>
-                            <div class="col-sm-3 col-md-3 col-xs-3">
-                                <div class="form-group">
-                                    <label for="employer_address">Employer Address:</label>
-                                    <input type="checkbox" name="employer_address" id="employer_address"
-                                        class="form-control" value="employer_address">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
+                            
+                     
                             <div class="col-sm-3 col-md-3 col-xs-3">
                                 <div class="form-group">
                                     <label for="employment_contract">Employment Contract:</label>
@@ -296,7 +374,13 @@
                                     </div>
                                 
                             </div>
-                            <div class="col-sm-3 col-md-3 col-xs-3"></div>
+                            <div class="col-sm-3 col-md-3 col-xs-3">
+                                <div class="form-group">
+                                    <label for="gender">Gender:</label>
+                                    <input type="checkbox" name="gender"
+                                        id="gender" class="form-control" value="gender">
+                                </div>
+                            </div>
                             <div class="col-sm-3 col-md-3 col-xs-3"></div>
                         </div>
                         <div class="row">

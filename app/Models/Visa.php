@@ -48,6 +48,12 @@ class Visa extends Model
         'status',
         'uuid',
         '_token',
-        'description'
+        'description',
+        'amount',
+        'country',
+        'gender',
+        'degree_type',
+        'degree_duration',
+        'employment_duration'
     ];
 }
