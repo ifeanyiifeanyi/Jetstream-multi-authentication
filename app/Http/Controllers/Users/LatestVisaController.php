@@ -139,7 +139,7 @@ class LatestVisaController extends Controller
         }
 
 
-        
+
         $data['uuid'] = Uuid::uuid_create();
 
 
@@ -150,7 +150,7 @@ class LatestVisaController extends Controller
 
     public function showAppliedVisas()
     {
-       
+
         $userId = Auth::user()->id;
 
         $visas =DB::table('visas')
@@ -168,7 +168,7 @@ class LatestVisaController extends Controller
         ->where('visa_applications.uuid', '=', $uuid)
         ->select('visas.*','visa_applications.created_at as application_date','visa_applications.status as application_status','visa_applications.uuid as application_uuid', 'visa_applications.*')
         ->first();
-            dd($payment_types);
+            // dd($payment_types);
         return view('profile.applications.visas.payment', ['visas' => $visas, 'payment_types'=>$payment_types]);
     }
 }
