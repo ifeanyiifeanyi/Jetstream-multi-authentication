@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
     <style>
-      
+
         label{
             margin-bottom: 30px;
         }
@@ -21,23 +21,23 @@
                             {{ ucwords($visa_application->university_name) }}
                         @else
                         {{ ucwords($visa_application->employer_name) }}
-                            
+
                         @endif
                     </p>
-                  
+
                     @if($errors->any())
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                        <strong class="font-bold">Whoops!</strong>
-                        <span class="block sm:inline">There were some problems with your input.</span>
-                        <ul class="mt-3 list-disc list-inside text-sm text-red-600">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-               
-                
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong class="font-bold">Whoops!</strong>
+                            <span class="block sm:inline">There were some problems with your input.</span>
+                            <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
             <form action="{{ route('visa.offers.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
@@ -56,7 +56,7 @@
                     <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/2 px-2 mb-2 sm:mb-0 xl:mb-10">
                         <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-5 h-full">
                             <label class="flex items-center">
-                            
+
                                 <div class="ml-2">
                                     <p class="text-lg font-bold mb-1 sm:mb-2">
 
@@ -94,7 +94,7 @@
                                         @elseif($key === 'financial_support')
                                         <label for="financial_support" class="">Financial Information:</label>
                                         <input type="file" name="financial_support" id="financial_support" class="w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{old('financial_support')}}" required>
-                                        
+
                                         @elseif($key === 'academic_transcript')
                                         <label for="academic_transcript" class="">Academic Transcript:</label>
                                         <input type="file" name="academic_transcript" id="academic_transcript" class="w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{old('academic_transcript')}}" required>
@@ -106,7 +106,7 @@
                                         @elseif($key === 'hotel_reservation')
                                         <label for="hotel_reservation" class="">Hotel Reservation:</label>
                                         <input type="file" name="hotel_reservation" id="hotel_reservation" class="w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{old('hotel_reservation')}}" required>
-                                        
+
                                         @elseif($key === 'criminal_record')
                                         <label for="criminal_record" class="">Any Criminal Record:</label>
                                         <input type="text" name="criminal_record" id="criminal_record" class="w-full border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{old('criminal_record')}}" required>
@@ -126,17 +126,17 @@
                                 </div>
                             </label>
                         </div>
-                    
+
                     </div>
-                    
+
                     @endforeach
                     <hr>
-                   
+
                 </div>
                 <p class="px-5 py-5">
                     <button type="submit"
                         class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md flex items-center gap-2">
-                      
+
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
                             <path
                                 d="M10 2.5a7.5 7.5 0 0 0-7.5 7.5c0 3.033 1.813 5.604 4.404 6.729L6 18.5v-3.458C3.872 14.403 2.5 12.167 2.5 9.999A7.5 7.5 0 0 1 10 2.5zm4.667 8.556l-.786.787L12 11.048V7.5h-.5a.5.5 0 0 0-.5.5v4.048l-1.88-1.88-.786.787 2.667 2.667a.5.5 0 0 0 .707 0l2.667-2.667z" />

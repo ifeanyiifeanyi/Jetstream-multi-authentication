@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\VisaController;
 use App\Http\Controllers\Admin\LogoutController;
+use App\Http\Controllers\Users\DashboardController;
 use App\Http\Controllers\Users\LatestJobController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Users\LatestVisaController;
@@ -93,9 +94,11 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
 
 //user dashboard
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    
+    Route::controller(DashboardController::class)->group(function(){
+        Route::get('/dashboard', 'dashboard')->name('dashboard');
+    });
+    // Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
 
     Route::controller(LatestJobController::class)->group(function(){
         Route::get('jobs', 'index')->name('latest.job');
@@ -112,5 +115,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::post('visa-application', 'store')->name('visa.offers.store');
         Route::get('visa-offer/status', 'showAppliedVisas')->name('visa.offers.status');
         Route::get('visa-management/status/{uuid}', 'manageVisaPayment')->name('visa.offers.payment');
+        Route::post('visa-payment', 'visaPayment')->name('visa.payment');
     });
 });

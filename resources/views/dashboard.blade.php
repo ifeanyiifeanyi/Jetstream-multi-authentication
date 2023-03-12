@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-           <h3>user dashboard</h3>
+           <h3 class="text-teal-800 px-5 py-5 text-2xl">Welcome we interesting offers, for you.</h3>
         </div>
     </div>
 </x-app-layout>

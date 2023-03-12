@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Symfony\Polyfill\Uuid\Uuid;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\ProveOfPayments;
 use App\Models\VisaApplication;
 use Illuminate\Support\Facades\Auth;
 
@@ -116,11 +117,11 @@ class LatestVisaController extends Controller
 
 
         if($request->hasFile('travel_dates')){
-            $travel_date = $request->file('travel_dates');
-            $extension = $travel_date->getClientOriginalExtension();
-            $travel_dates = time(). ".".$extension;
-            $travel_date->move('travel_dates/', $travel_dates);
-            $data['travel_dates'] = 'travel_dates/'.$travel_dates;
+            $prove = $request->file('travel_dates');
+            $extension = $prove->getClientOriginalExtension();
+            $prove_payment = time(). ".".$extension;
+            $prove->move('travel_dates/', $prove_payment);
+            $data['travel_dates'] = 'travel_dates/'.$prove_payment;
         }else {
             $data['travel_dates'] = NULL;
         }
@@ -144,7 +145,7 @@ class LatestVisaController extends Controller
 
 
         VisaApplication::create($data);
-        return redirect()->route('visa.offers')->with('message', 'Your application has been created');
+        return redirect()->route('visa.offers')->with('message', 'Your application has been created, please check your visa application page for more information');
 
     }
 
@@ -170,5 +171,32 @@ class LatestVisaController extends Controller
         ->first();
             // dd($payment_types);
         return view('profile.applications.visas.payment', ['visas' => $visas, 'payment_types'=>$payment_types]);
+    }
+
+    public function visaPayment(Request $request){
+        $request->validate([
+            
+            'payment_option_id' => 'required',
+            'transaction_code' => 'required|string|unique:prove_of_payments',
+            'prove_of_payment' => 'required|file|mimes:pdf,jpeg,jpg|max:20048',
+        ]);
+
+        if($request->hasFile('prove_of_payment')){
+            $prove = $request->file('prove_of_payment');
+            $extension = $prove->getClientOriginalExtension();
+            $prove_payment = time(). ".".$extension;
+            $prove->move('prove_of_payments/', $prove_payment);
+            $prove_of_payment = 'prove_of_payments/'.$prove_payment;
+        }
+
+        $pay = new ProveOfPayments();
+        $pay->user_id = $request->user_id;
+        $pay->username = $request->username;
+        $pay->user_email = $request->user_email;
+        $pay->payment_option_id = $request->payment_option_id;
+        $pay->transaction_code = $request->transaction_code;
+        $pay->prove_of_payment = $prove_of_payment;
+        $pay->save();
+        return redirect()->route('visa.offers.status')->with('message', 'Your payment is being processed, please wait for more instructions ...');
     }
 }
