@@ -15,8 +15,8 @@
                         <div class="bg-white rounded-lg shadow-lg p-5 ">
                             <img src="{{ asset('default/visa.jpg') }}" alt="">
                             <!-- Card content goes here -->
-                            <h2 class="text-xl font-bold mb-2">{{ucwords($visa->visa_name)}}</h2>
-                            <p>{{ Str::limit(Str::ucfirst($visa->description)) }}</p>
+                            <h2 class="text-xl font-bold mb-5 mt-5 text-gray-400">{{ucwords($visa->visa_name)}}</h2>
+                            <p class="mb-5 text-gray-500">{{ Str::limit(Str::ucfirst($visa->description)) }}</p>
                             <hr>
                             <p class="flex justify-center mt-5">
                                 <a href="{{ route('visa.offers.show', $visa->uuid) }}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md flex items-center gap-2">

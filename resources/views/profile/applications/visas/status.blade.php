@@ -44,8 +44,8 @@
                     </div>
                 @endforeach
                 @else
-                    <div class="flex items-center justify-center">
-                        <h3 class="text-orange-600 mx-auto text-4xl">Try again later!</h3>
+                    <div class="flex items-center justify-center py-5 px-5">
+                        <h3 class="text-orange-600 mx-auto text-4xl">You do not have any active application(s)</h3>
                     </div>
                 @endif
 
