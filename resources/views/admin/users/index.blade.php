@@ -33,16 +33,15 @@
             @endif
             <div class="card">
                 <div class="card-header">
-                    
-                  
+
+
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th style="width:20px !important"><input type="checkbox" name="ids" id="ids"
-                                        class="all_ids"></th>
+
                                 <th style="width:20px !important">#</th>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -56,7 +55,6 @@
                         <tbody>
                             @foreach ($users as $user)
                             <tr>
-                                <td><input type="checkbox" name="ids" id="ids"></td>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ ucwords($user->name) }} </td>
 
@@ -67,8 +65,15 @@
                                     &nbsp;
                                     &nbsp;
                                     &nbsp;
-                                    <i
-                                        class="{{ $user->email_verified_at ? 'text-success fas fa-times' : 'text-danger text-center fas fa-times' }}"></i>
+                                    @if($user->email_verified_at !== NULL)
+                                        <i class="text-success text-center fas fa-check"></i>
+                                        <br>
+                                        <p class="text-success text-center">Verified</p>
+                                    @else
+                                        <i class="text-danger text-center fas fa-times"></i>
+                                        <br>
+                                        <a href="" class="btn btn-sm btn-info">Click to Verify</a>
+                                    @endif
                                 </td>
                                 <td>
                                     @if($user->profile_photo_path)

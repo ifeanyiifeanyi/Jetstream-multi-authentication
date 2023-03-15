@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\VisaController;
 use App\Http\Controllers\Admin\LogoutController;
@@ -23,7 +24,9 @@ use App\Http\Controllers\Admin\ManagePaymentTypeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('link', function(){
+    Artisan::call('storage:link');
+});
 Route::get('/', function () {
     return view('welcome');
 });
@@ -94,7 +97,7 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
 
 //user dashboard
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-    
+
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard', 'dashboard')->name('dashboard');
     });
